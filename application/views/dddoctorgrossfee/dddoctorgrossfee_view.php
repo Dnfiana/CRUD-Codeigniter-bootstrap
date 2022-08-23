@@ -1,0 +1,114 @@
+<html>
+    <head>
+		<title>DATA</title>
+        <script src="<?= base_url() ?>assets/jquery/jquery-3.6.0.min.js"></script>
+        <script src="<?= base_url() ?>assets/bootstrap/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="<?= base_url() ?>assets/bootstrap/css/bootstrap.min.css">
+
+        <style>
+            h1 {
+                margin-top:20px;
+            }
+            table{
+                padding:10px;
+                text-align:center;
+                margin-top:30px;
+                border:2px solid;
+            }
+
+            </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <a class="navbar-brand" 
+               href="<?php echo site_url('home'); ?>">Dwi Nurfiana
+            </a>
+            <button class="navbar-toggler" data-toggle="collapse" 
+                    data-target="#collapsibleNavbar" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav mr-auto">
+                    <li>
+                       <a class="nav-link" 
+                           href="<?php echo site_url('vendinvoicepurchlink'); ?>">
+                           Vendinvoicepurchlink
+                        </a>
+                    </li>
+                    <li>
+                       <a class="nav-link" 
+                           href="<?php echo site_url('inventdim'); ?>">
+                            Inventdim
+                        </a>
+                    </li> 
+                    <li>
+                       <a class="nav-link" 
+                           href="<?php echo site_url('inventjournaltable'); ?>">
+                            Inventjournaltable
+                        </a>
+                    </li> 
+                    <li>
+                        <a class="nav-link" 
+                           href="<?php echo site_url('dddoctorgrossfee'); ?>">
+                           Dddoctorgrossfee
+                        </a>
+                    </li>   
+                </ul> 
+            <form class="form-inline my-2 my-lg-O" method='post' action="<?= base_url() ?>index.php/dddoctorgrossfee/index" >
+                <input class="form-control mr-sm-2 " type='text' name="search" placeholder="Search" value='<?= $search ?>'><input class="btn btn-primary my-2 my-sm-O" type='submit' name='submit' value='Submit'>
+            </form>              
+            </div> 
+        </nav>
+
+        <div class="container">    
+            <h1><center>DATA </center></h1> 
+            <a href="<?php echo site_url('dddoctorgrossfee/add_new');?>"class="btn btn-primary">Add Data</a><br/><br/>            
+            <table class="table table-hover">
+                <thead class="table table-dark">
+                <tr>
+                        <th>RECID</th>
+                        <th>ACCOUNT</th>
+                        <th>ACCOUNTNAME</th>
+                        <th>DDBILLNO</th>
+                        <th>DDBILLDATE</th>
+                        <th>LINEAMOUNT</th>
+                        <th>DDDOCTORPCT</th>
+                        <th>DDORDERITEMID</th>
+                        <th>DDORDERITEMCODE</th>
+                        <th>DDMRNO</th>
+                        <th>ACTION</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $count = 0;
+                    foreach ($dddoctorgrossfee->result() as $row) :
+                        $count++;
+                    ?>
+                <tr>
+                    <td><?php echo $row->RECID;?></td>
+                    <td><?php echo $row->ACCOUNT;?></td>
+                    <td><?php echo $row->ACCOUNTNAME;?></td>
+                    <td><?php echo $row->DDBILLNO;?></td>
+                    <td><?php echo $row->DDBILLDATE;?></td>
+                    <td><?php echo $row->LINEAMOUNT;?></td>
+                    <td><?php echo $row->DDDOCTORPCT;?></td>
+                    <td><?php echo $row->DDORDERITEMID;?></td>
+                    <td><?php echo $row->DDORDERITEMCODE;?></td>
+                    <td><?php echo $row->DDMRNO;?></td>
+                    <td>
+                        <a href="<?php echo site_url('dddoctorgrossfee/get_edit/'.$row->RECID);?>"><button type="button" class="btn btn-light">Update</button></a>
+                        <a href="<?php echo site_url('dddoctorgrossfee/get_delete/'.$row->RECID);?>"><button type="button" class="btn btn-dark">Delete</button></a>
+                    <td>
+                </tr>
+                <?php 
+                 $count++;
+                endforeach;?>
+                </tbody>
+            </table>
+             <!-- Paginate -->
+             <div >
+                <?= $pagination; ?>
+            </div>        
+    </body>
+</html>
